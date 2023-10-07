@@ -1,27 +1,29 @@
-# Java Array : Chapter 2 Two Dimensional Array in Java
+# Java Array : Chapter 3 Copying Arrays in Java
 
-## Two Dimensional Array Simple Example
+## 1. Copying Arrays using Built-in System.arraycopy() Method
+
 ```java
-public class MultiDimArrayDemo {
+public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)
+```
+Parameters :
+* src    : the source array.
+* srcPos : starting position in the source array.
+* dest : the destination array.
+* destPos : starting position in the destination data.
+* length : the number of array elements to be copied.
+Throws:
+* IndexOutOfBoundsException : if copying would cause access of data outside array bounds.
+* ArrayStoreException : if an element in the src array could not be stored into the dest array because of a type mismatch.
+* NullPointerException - if either src or dest is null.
+
+```java
+public class ArrayCopyDemo {
     public static void main(String[] args) {
-        String[][] names = {
-            {"Mr. ", "Mrs. ", "Ms. "},
-            {"Smith", "Jones"}
-        };
+        char[] copyFrom = { 'd', 'e', 'c', 'a', 'f', 'f', 'e', 'i', 'n', 'a', 't', 'e', 'd' };
+        char[] copyTo = new char[7];
 
-        // Mr. Smith
-        System.out.println(
-            names[0][0] +
-            names[1][0]
-        );
-
-        // Ms. Jones
-        System.out.println(
-            names[0][2] +
-            names[1][1]
-        );
-
-        System.out.println("Size : " + names.length);
+        System.arraycopy(copyFrom, 2, copyTo, 0, 7);
+        System.out.println(new String(copyTo));
     }
 }
 ```
@@ -30,108 +32,23 @@ public class MultiDimArrayDemo {
 <summary>Output : </summary>
 
 ```shell
-Mr. Smith
-Ms. Jones
-Size : 2
+caffein
 ```
 
 </details>
 
-## Java Two Dimensional Array of primitive type
 ```java
-// an array of int arrays of 2 row and 3 columns
-int[][] twoDimArray = new int[2][3];
-for (int i = 0; i < twoDimArray.length; i++) {
-    for (int j = 0; j < twoDimArray[i].length; j++) {
-        twoDimArray[i][j] = j;
-        System.out.print(twoDimArray[i][j] + " ");
-    }
-    System.out.println("");
-}
-```
+import java.util.Arrays;
 
-<details>
-<summary>Output : </summary>
-
-```shell
-0 1 2 
-0 1 2
-```
-
-</details>
-
-## Java Two Dimensional Array of Objects
-```java
-// an array of String arrays of 3 rows and 4 columns
-String[][] arrStr = new String[3][4];
-for (int i = 0; i < arrStr.length; i++) {
-    for (int j = 0; j < arrStr[i].length; j++) {
-        arrStr[i][j] = "Str" + j;
-        System.out.print(arrStr[i][j] + " ");
-    }
-    System.out.println("");
-}
-```
-
-<details>
-<summary>Output : </summary>
-
-```shell
-Str0 Str1 Str2 Str3 
-Str0 Str1 Str2 Str3 
-Str0 Str1 Str2 Str3
-```
-
-</details>
-
-## Shortcut Syntax to Create and Initialize a Two Dimensional Array
-```java
-// creating and initializing two dimensional int array with shortcut
-// syntax
-int[][] arrInt = { { 1, 2, 3 }, { 3, 4, 5 } };
-for (int i = 0; i < arrInt.length; i++) {
-        for (int j = 0; j < arrInt[i].length; j++) {
-        System.out.print(arrInt[i][j] + " ");
-    }
-    System.out.println("");
-}
-```
-
-## Complete Two Dimensional Array Source Code Example
-
-```java
-public class TwoDimentionalArray {
+public class JavaArrayCopyExample {
     public static void main(String[] args) {
+        int[] source = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        System.out.println("Source array = " + Arrays.toString(source));
 
-        // an array of int arrays of 2 row and 3 columns
-        int[][] twoDimArray = new int[2][3];
-        for (int i = 0; i < twoDimArray.length; i++) {
-            for (int j = 0; j < twoDimArray[i].length; j++) {
-                twoDimArray[i][j] = j;
-                System.out.print(twoDimArray[i][j] + " ");
-            }
-            System.out.println("");
-        }
+        int[] temp = new int[5];
+        System.arraycopy(source, 0, temp, 0, 5);
 
-        // an array of String arrays of 3 rows and 4 columns
-        String[][] arrStr = new String[3][4];
-        for (int i = 0; i < arrStr.length; i++) {
-            for (int j = 0; j < arrStr[i].length; j++) {
-                arrStr[i][j] = "Str" + j;
-                System.out.print(arrStr[i][j] + " ");
-            }
-            System.out.println("");
-        }
-
-        // creating and initializing two dimensional int array with shortcut
-        // syntax
-        int[][] arrInt = { { 1, 2, 3 }, { 3, 4, 5 } };
-        for (int i = 0; i < arrInt.length; i++) {
-            for (int j = 0; j < arrInt[i].length; j++) {
-                System.out.print(arrInt[i][j] + " ");
-            }
-            System.out.println("");
-        }
+        System.out.println("Copy First five elements of array. Result array = " + Arrays.toString(temp));
     }
 }
 ```
@@ -140,13 +57,83 @@ public class TwoDimentionalArray {
 <summary>Output : </summary>
 
 ```shell
-0 1 2 
-0 1 2
-Str0 Str1 Str2 Str3
-Str0 Str1 Str2 Str3
-Str0 Str1 Str2 Str3
-1 2 3
-3 4 5
+Source array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+Copy First five elements of array. Result array = [1, 2, 3, 4, 5]
+```
+
+</details>
+
+## 2. Copying Arrays Using Arrays.copyOf() Method
+```java
+import java.util.Arrays;
+
+public class JavaArrayCopyExample {
+    public static void main(String[] args) {
+        int[] source = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        System.out.println("Source array = " + Arrays.toString(source));
+
+        int[] dest = Arrays.copyOf(source, source.length);
+        System.out.println("Copy First five elements of array. Result array = " + Arrays.toString(dest));
+    }
+}
+```
+
+<details>
+<summary>Output : </summary>
+
+```shell
+Source array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+Copy First five elements of array. Result array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+</details>
+
+## 3. Copying Arrays using Object.clone() method
+```java
+import java.util.Arrays;
+
+public class JavaArrayCopyExample {
+    public static void main(String[] args) {
+        int[] source = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        System.out.println("Source array = " + Arrays.toString(source));
+
+        int[] dest = source.clone();
+        System.out.println("Copy First five elements of array. Result array = " + Arrays.toString(dest));
+    }
+}
+```
+
+<details>
+<summary>Output : </summary>
+
+```shell
+Source array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+Copy First five elements of array. Result array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+</details>
+
+## 4. Copying Arrays using Arrays.copyOfRange()
+```java
+import java.util.Arrays;
+
+public class JavaArrayCopyExample {
+    public static void main(String[] args) {
+        int[] source = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        System.out.println("Source array = " + Arrays.toString(source));
+
+        int[] dest = Arrays.copyOfRange(source, source.length - 3, source.length);
+        System.out.println("Copy First five elements of array. Result array = " + Arrays.toString(dest));
+    }
+}
+```
+
+<details>
+<summary>Output : </summary>
+
+```shell
+Source array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+Copy First five elements of array. Result array = [7, 8, 9]
 ```
 
 </details>
