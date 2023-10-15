@@ -318,7 +318,7 @@ Output: [3, 4, 6, 16, 17]
 ```
 
 <details>
-<summary>Solution : </summary>
+<summary>Solution 1 : </summary>
 
 ```shell
 package Exercise;
@@ -353,7 +353,7 @@ public class Solution {
 </details>
 
 <details>
-<summary>Solution : </summary>
+<summary>Solution 2 : </summary>
 
 ```shell
 package Exercise;
