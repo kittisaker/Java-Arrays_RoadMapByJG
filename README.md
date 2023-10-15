@@ -1,28 +1,5 @@
 # Java Array : Chapter 1 Java Array Basics Guide
 
-## Array Overview
-* An array is a container object that holds a fixed number of values of a single type.
-* The length of an array is established when the array is created. After creation, its length is fixed.
-* As we know <b>Array</b> is a data structure where we store similar elements and Array a starts from index 0.
-* Each item in an array is called an <b>element</b>, and each element is accessed by its numerical <b>index</b>.
-* Since arrays are <b>objects</b> in Java, we can find their length using member length.
-* A Java array variable can also be declared like other variables with [] after the data type.
-* The variables in the array are ordered and each has an index beginning from 0.
-* Java array can be also be used as a <b>static</b> field, a <b>local</b> variable or a method parameter.
-* The size of an array must be specified by an int value and not long or short.
-
-## Advantage of Java Array
-* Code Optimization: It makes the code optimized, we can retrieve or sort the data easily.
-* Random access: We can get any data located at any index position.
-
-## Disadvantage of Java Array
-* Size Limit: We can store the only fixed size of elements in the array. It doesn't grow its size at runtime. To solve this problem, <b>collection framework</b> is used in java.
-
-## Types of Array in java
-There are two types of array.
-* Single Dimensional Array
-* Multidimensional Array (Chapter-2)
-
 ## Declaring a Variable to Refer to an Array
 * An array's type is written as type[], where type is the data type of the contained elements; the brackets are special symbols indicating that this variable holds an array. The size of the array is not part of its type (which is why the brackets are empty).
 * A variable like from above program anArray is variable, the declaration does not actually create an array; it simply tells the compiler that this variable will hold an array of the specified type.
@@ -324,6 +301,83 @@ Element 1 at index 0: kope
 Element 2 at index 1: Mei
 Element 1 at index 0: A
 Element 2 at index 1: B
+```
+
+</details>
+
+---
+
+## Exercise
+
+### Sum
+
+```shell
+runningSum[i] = sum(nums[0]...nums[i]);
+Input: nums = [3, 1, 2, 10, 1]
+Output: [3, 4, 6, 16, 17]
+```
+
+<details>
+<summary>Solution : </summary>
+
+```shell
+package Exercise;
+// runningSum[i] = sum(nums[0]...nums[i]);
+// Input: nums = [3, 1, 2, 10, 1]
+// Output: [3, 4, 6, 16, 17]
+public class Solution {
+    public static int[] runningSum(int[] nums){
+        int[] results = new int[nums.length];
+        results[0] = nums[0];
+
+        for (int i = 1; i < results.length; i++) {
+            results[i] = nums[i] + results[i-1];
+        }
+
+        return results;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {3, 1, 2, 10, 1};
+
+        int[] answers = runningSum(nums);
+
+
+        for (int i = 0; i < answers.length; i++) {
+            System.out.print(answers[i] + " ");
+        }
+    }
+}
+```
+
+</details>
+
+<details>
+<summary>Solution : </summary>
+
+```shell
+package Exercise;
+// runningSum[i] = sum(nums[0]...nums[i]);
+// Input: nums = [3, 1, 2, 10, 1]
+// Output: [3, 4, 6, 16, 17]
+public class Solution {
+    public static int[] runningSum(int[] nums){
+        for (int i = 1; i < nums.length; i++) {
+            nums[i] = nums[i] + nums[i - 1];
+        }
+        return nums;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {3, 1, 2, 10, 1};
+
+        int[] answers = runningSum(nums);
+
+        for (int i = 0; i < answers.length; i++) {
+            System.out.print(answers[i] + " ");
+        }
+    }
+}
 ```
 
 </details>
